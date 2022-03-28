@@ -1,0 +1,67 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int n;
+    system("chcp 65001");
+    cout<<"1) введите количество чисел в массиве: ";
+    cin>> n;
+    int arr[n];
+    for (int i = 0; i < n; i++) {
+        cout << "[" << i + 1 << "]" << ": ";
+        cin >> arr[i];
+    }
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    cout<<"2)Сортировка выбором: ";
+    int t=0;
+    int j;
+    for (int i=0;i<n;i++){
+        j = i;
+        for (t=i;t<n;t++)
+            if (arr[j]< arr[t]){
+                j=t;
+            }
+        swap(arr[i],arr[j]);
+    }
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    cout<<"Сортировка пузырьком: ";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n-1; j++){
+            if(arr[j]<arr[j+1]){
+                swap(arr[j+1],arr[j]);
+            }
+        }
+    }
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    cout<<"3)Сортировка вставками ";
+    for (int i = 1; i < n; i++){
+        int c= arr[i];
+        int p=i;
+        while(p > 0 and arr[p-1]<c){
+            arr[p]=arr[p-1];
+            p--;
+        }
+        arr[p]=c;
+    }
+for (int i = 0; i < n; ++i) {
+cout << arr[i] << " ";
+}
+    cout << endl;
+    cout<<"4)Сортировка c помощью встроенных функций: ";
+   sort(arr+n, arr);
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    return 0;
+}
