@@ -1,0 +1,143 @@
+1)
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    ofstream object;
+    object.open("pr.txt");
+    object << "Цифровой практикум";
+    object.close();
+    return 0;
+}
+
+2)
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    system("chcp 65001");
+
+    string line;
+
+    ifstream fin("pr.txt");
+    while (fin >> line)
+        {
+            cout << line << endl;
+        }
+
+    fin.close();
+
+    return 0;
+}
+
+3)
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    system("chcp 65001");
+
+    string line;
+
+    ifstream fin("pr.txt");
+    int n;
+    cout << "Введите чисо строк:\n";
+    cin >> n;
+    for (int i = 1; i <= n; ++i){
+        getline(fin, line);
+        {
+            cout << line << endl;
+        }
+    }
+    
+    fin.close();
+
+    return 0;
+}
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    system("chcp 65001");
+
+    int n = 1000;
+    
+    char* buffer = new char[n+1]; buffer[n]=0;
+    ifstream file("pr.txt");
+
+    file.read(buffer,n);
+    cout << buffer;
+    file.close();
+
+    return 0;
+}
+
+4)
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    system("chcp 65001");
+    string s;
+    ifstream file("pr.txt");
+
+    for(file >> s; !file.eof(); file >> s)
+        cout << s << endl;
+    if (file.eof())
+        cout << "Достигнут конец файла\n";
+
+    file.close();
+
+    return 0;
+}
+5)
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    string s;
+
+    ofstream object;
+    object.open("pr.txt");
+    cout << "Enter your string: \n";
+    cin >> s;
+
+    object << s;
+
+    object.close();
+    return 0;
+}
+
+6)
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    system("chcp 65001");
+
+    string line;
+
+    ifstream fin("pr.txt");
+
+    while(getline(fin, line))
+        {
+            cout << line << endl;
+        }
+
+    fin.seekg(0,ios_base::end); 
+    cout << "Размер файла (в байтах): " << fin.tellg();
+
+    fin.close();
+
+    return 0;
+}
