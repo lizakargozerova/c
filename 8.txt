@@ -1,0 +1,67 @@
+1)
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include<iomanip>
+using namespace std;
+
+int main()
+{
+    vector <int> nums;
+    string s = ""; //сюда ввести число
+    for(int i=0;i<s.size();i++) nums.push_back(s[i]);
+    int point;
+    for(int j=0; j<nums.size(); j++){
+        if(nums[j]=='.') point=j;
+    }
+    double total_num = 0;
+    for(int left_dig=1; left_dig <=point; left_dig++){
+        total_num+= (nums[left_dig-1]-48)*pow(10,point-left_dig);
+    }
+    int right_dig=1;
+    while(point+right_dig <nums.size()){
+        total_num+= (nums[point+right_dig]-48)*pow(10,-right_dig);
+        right_dig++;
+    }
+    int size= nums.size()-1; //без set precision самопроизвольно округляет
+    cout<<setprecision(size)<<total_num;
+    return 0;
+}
+
+2)
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int string_to_vec(string s)
+{
+    vector <string> equation;
+    int j = 1;
+    int i = 0;
+    equation.resize(j);
+    while (i<s.size()){
+        if (s[i]==' ') {
+            i++;
+            continue;
+        }
+        if(s[i]=='+')
+        {
+            string el= "";
+            el += s[i];
+            j += 2;
+            equation.resize(j);
+            equation[j-2] += el;
+            i++;
+        }else{
+            string el = "";
+            el += s[i];
+            equation[j-1] += el;
+            i++;
+        }
+    }
+    for(int i = 0; i<equation.size();i++)
+    {
+        cout<<equation[i]<<' ';
+    }
+    return 0;
+}
