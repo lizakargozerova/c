@@ -1,67 +1,78 @@
-1)
-#include <iostream>
-#include <vector>
+#include <string>
 #include <cmath>
-#include<iomanip>
+#include <vector>
+#include <iostream>
+
 using namespace std;
 
-int main()
-{
-    vector <int> nums;
-    string s = ""; //сюда ввести число
-    for(int i=0;i<s.size();i++) nums.push_back(s[i]);
-    int point;
-    for(int j=0; j<nums.size(); j++){
-        if(nums[j]=='.') point=j;
-    }
-    double total_num = 0;
-    for(int left_dig=1; left_dig <=point; left_dig++){
-        total_num+= (nums[left_dig-1]-48)*pow(10,point-left_dig);
-    }
-    int right_dig=1;
-    while(point+right_dig <nums.size()){
-        total_num+= (nums[point+right_dig]-48)*pow(10,-right_dig);
-        right_dig++;
-    }
-    int size= nums.size()-1; //без set precision самопроизвольно округляет
-    cout<<setprecision(size)<<total_num;
-    return 0;
+double StringToDouble(string s1) {
+	int mainpart_size = 0;
+	while (s1[mainpart_size] != '.') {
+		mainpart_size++;
+	}
+	int decpart_size = s1.size() - mainpart_size - 1;
+	bool decpart = true;
+	double k = 1, m = pow(10,-decpart_size),result=0;
+	for (int i = s1.size() - 1; i >= 0; i--) {
+		if (isdigit(s1[i]) && decpart == true) {
+			result += (s1[i] - '0') * m;
+			m *= 10;
+		}
+		else if (isdigit(s1[i]) && decpart == false) {
+			result += (s1[i] - '0') * k;
+			k *= 10;
+		}
+		else {
+			decpart = false;
+		}
+	}
+
+	return result;
 }
 
-2)
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
-int string_to_vec(string s)
-{
-    vector <string> equation;
-    int j = 1;
-    int i = 0;
-    equation.resize(j);
-    while (i<s.size()){
-        if (s[i]==' ') {
-            i++;
-            continue;
-        }
-        if(s[i]=='+')
-        {
-            string el= "";
-            el += s[i];
-            j += 2;
-            equation.resize(j);
-            equation[j-2] += el;
-            i++;
-        }else{
-            string el = "";
-            el += s[i];
-            equation[j-1] += el;
-            i++;
-        }
-    }
-    for(int i = 0; i<equation.size();i++)
-    {
-        cout<<equation[i]<<' ';
-    }
-    return 0;
+vector<string> StringToVector(string s1) {
+
+	vector<string>vec;
+	for (int i = 0; i < s1.size(); i++) {
+		string to_add = "";
+		char c = s1[i];
+		if (s1[i] == '+' || s1[i] == '-' || s1[i] == '*' || s1[i] == '/') {
+			to_add += s1[i];
+		}
+		else if (isdigit(c)) {
+			while (isdigit(s1[i])) {
+				to_add += s1[i];
+				i++;
+			}
+			i--;
+		}
+		else if (isalpha(c)) {
+			while (isalpha(s1[i])) {
+				to_add += s1[i];
+				i++;
+			}
+			i--;
+		}
+		vec.push_back(to_add);
+	}
+
+	return vec;
+}
+
+
+int main() {
+	string s1 = "";
+	cin >> s1;
+
+	cout << StringToDouble(s1) << endl;
+
+	string s2;
+	cin >> s2;
+
+	vector<string>ans = StringToVector(s2);
+	for (int i = 0; i < ans.size(); i++) {
+		cout << ans[i] << ' ';
+	}
+
+return 0;
 }
